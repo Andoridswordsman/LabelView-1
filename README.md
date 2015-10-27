@@ -14,6 +14,12 @@ Inherits from TextView, can set vertical and horizontal label to TextView
 
 - [ ] 实现上下左右 text 的样式定义
 
+### Usage
+
+```groovy
+compile 'me.drakeet.labelview:labelview:0.618'
+```
+
 License
 ============
 
