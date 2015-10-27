@@ -18,14 +18,20 @@
 
     <me.drakeet.labelview.LabelView
         android:id="@+id/lableview"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="text"
-        app:left_text="LeftText -&gt; "
-        app:top_text="TopText"
-        app:right_text=" &lt;- RightText"
-        app:bottom_text="BottomText"/>
+        android:textSize="12sp"
+        android:autoLink="web"
+        app:leftText="LeftText -&gt; "
+        app:topText="Top: http://drakeet.me"
+        app:rightText=" &lt;- RightText"
+        app:bottomText="BottomText"
+        app:leftTextAppearance="@style/LeftTextStyle"
+        app:topTextAppearance="@style/TopTextStyle"
+        app:rightTextAppearance="@style/RightTextStyle"
+        app:bottomTextAppearance="@style/BottomTextStyle"/>
 
     <EditText
         android:id="@+id/edit_text"

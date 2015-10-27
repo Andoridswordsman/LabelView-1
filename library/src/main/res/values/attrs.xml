@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="LabelView">
-        <attr name="left_text"
+        <attr name="leftText"
             format="string"/>
 
-        <attr name="right_text"
+        <attr name="rightText"
             format="string"/>
 
-        <attr name="top_text"
+        <attr name="topText"
             format="string"/>
 
-        <attr name="bottom_text"
+        <attr name="bottomText"
             format="string"/>
+
+        <attr name="leftTextAppearance"
+            format="reference"/>
+
+        <attr name="rightTextAppearance"
+            format="reference"/>
+
+        <attr name="topTextAppearance"
+            format="reference"/>
+
+        <attr name="bottomTextAppearance"
+            format="reference"/>
+
     </declare-styleable>
 </resources>

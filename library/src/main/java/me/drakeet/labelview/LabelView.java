@@ -2,6 +2,9 @@ package me.drakeet.labelview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.TextAppearanceSpan;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.TextView;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 public class LabelView extends TextView {
 
     private CharSequence mLeftText, mTopText, mRightText, mBottomText;
+    private int mLeftTextAppearance, mTopTextAppearance, mRightTextAppearance,
+            mBottomTextAppearance;
     private CharSequence mText;
 
 
@@ -29,10 +34,16 @@ public class LabelView extends TextView {
     public LabelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LabelView);
-        mLeftText = a.getText(R.styleable.LabelView_left_text);
-        mTopText = a.getText(R.styleable.LabelView_top_text);
-        mRightText = a.getText(R.styleable.LabelView_right_text);
-        mBottomText = a.getText(R.styleable.LabelView_bottom_text);
+        mLeftText = a.getText(R.styleable.LabelView_leftText);
+        mTopText = a.getText(R.styleable.LabelView_topText);
+        mRightText = a.getText(R.styleable.LabelView_rightText);
+        mBottomText = a.getText(R.styleable.LabelView_bottomText);
+
+        mLeftTextAppearance = a.getResourceId(R.styleable.LabelView_leftTextAppearance, 0);
+        mTopTextAppearance = a.getResourceId(R.styleable.LabelView_topTextAppearance, 0);
+        mRightTextAppearance = a.getResourceId(R.styleable.LabelView_rightTextAppearance, 0);
+        mBottomTextAppearance = a.getResourceId(R.styleable.LabelView_bottomTextAppearance, 0);
+
         a.recycle();
 
         setGravity(Gravity.CENTER);
@@ -45,20 +56,44 @@ public class LabelView extends TextView {
         mText = mainText;
         CharSequence text = mainText;
         if (notNullOrEmpty(mLeftText)) {
-            text = mLeftText.toString() + text;
+            text = buildTextLeft(mLeftText.toString(), text, mLeftTextAppearance);
         }
         if (notNullOrEmpty(mRightText)) {
-            text = text + mRightText.toString();
+            text = buildTextRight(text, mRightText.toString(), mRightTextAppearance);
         }
         if (notNullOrEmpty(mTopText)) {
-            text = mTopText.toString() + "\n" + text;
+            text = new SpannableStringBuilder("\n").append(text);
+            text = buildTextLeft(mTopText.toString(), text, mTopTextAppearance);
         }
         if (notNullOrEmpty(mBottomText)) {
-            text = text + "\n" + mBottomText.toString();
+            text = new SpannableStringBuilder(text).append("\n");
+            text = buildTextRight(text, mBottomText.toString(), mBottomTextAppearance);
         }
         if (notNullOrEmpty(text)) {
             super.setText(text, type);
         }
+    }
+
+
+    private CharSequence buildTextLeft(CharSequence head, CharSequence foot, int style) {
+        SpannableString leftText = format(getContext(), head, style);
+        SpannableStringBuilder builder = new SpannableStringBuilder(leftText).append(foot);
+        return builder.subSequence(0, builder.length());
+    }
+
+
+    //todo
+    private CharSequence buildTextRight(CharSequence head, CharSequence foot, int style) {
+        SpannableString rightText = format(getContext(), foot, style);
+        SpannableStringBuilder builder = new SpannableStringBuilder(head).append(rightText);
+        return builder.subSequence(0, builder.length());
+    }
+
+
+    public SpannableString format(Context context, CharSequence text, int style) {
+        SpannableString spannableString = new SpannableString(text);
+        spannableString.setSpan(new TextAppearanceSpan(context, style), 0, text.length(), 0);
+        return spannableString;
     }
 
 
