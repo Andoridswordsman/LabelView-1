@@ -13,6 +13,7 @@ Inherits from TextView, can set vertical and horizontal label to TextView
 ### TODO
 
 - [x] 实现上下左右 text 的样式定义
+- [ ] 实现上下左右 text 的 margin or padding
 
 ### Usage
 
