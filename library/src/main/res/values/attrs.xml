@@ -25,5 +25,7 @@
         <attr name="bottomTextAppearance"
             format="reference"/>
 
+        <attr name="android:gravity" />
+
     </declare-styleable>
 </resources>

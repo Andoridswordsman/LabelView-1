@@ -33,20 +33,27 @@ public class LabelView extends TextView {
 
     public LabelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LabelView);
+        TypedArray a = context.obtainStyledAttributes(attrs,
+                R.styleable.LabelView);
         mLeftText = a.getText(R.styleable.LabelView_leftText);
         mTopText = a.getText(R.styleable.LabelView_topText);
         mRightText = a.getText(R.styleable.LabelView_rightText);
         mBottomText = a.getText(R.styleable.LabelView_bottomText);
 
-        mLeftTextAppearance = a.getResourceId(R.styleable.LabelView_leftTextAppearance, 0);
-        mTopTextAppearance = a.getResourceId(R.styleable.LabelView_topTextAppearance, 0);
-        mRightTextAppearance = a.getResourceId(R.styleable.LabelView_rightTextAppearance, 0);
-        mBottomTextAppearance = a.getResourceId(R.styleable.LabelView_bottomTextAppearance, 0);
+        mLeftTextAppearance = a.getResourceId(
+                R.styleable.LabelView_leftTextAppearance, 0);
+        mTopTextAppearance = a.getResourceId(
+                R.styleable.LabelView_topTextAppearance, 0);
+        mRightTextAppearance = a.getResourceId(
+                R.styleable.LabelView_rightTextAppearance, 0);
+        mBottomTextAppearance = a.getResourceId(
+                R.styleable.LabelView_bottomTextAppearance, 0);
+        int gravity = a.getInt(R.styleable.LabelView_android_gravity,
+                Gravity.CENTER);
 
         a.recycle();
 
-        setGravity(Gravity.CENTER);
+        setGravity(gravity);
         setText(super.getText());
     }
 
@@ -56,10 +63,12 @@ public class LabelView extends TextView {
         mText = mainText;
         CharSequence text = mainText;
         if (notNullOrEmpty(mLeftText)) {
-            text = buildTextLeft(mLeftText.toString(), text, mLeftTextAppearance);
+            text = buildTextLeft(mLeftText.toString(), text,
+                    mLeftTextAppearance);
         }
         if (notNullOrEmpty(mRightText)) {
-            text = buildTextRight(text, mRightText.toString(), mRightTextAppearance);
+            text = buildTextRight(text, mRightText.toString(),
+                    mRightTextAppearance);
         }
         if (notNullOrEmpty(mTopText)) {
             text = new SpannableStringBuilder("\n").append(text);
@@ -67,7 +76,8 @@ public class LabelView extends TextView {
         }
         if (notNullOrEmpty(mBottomText)) {
             text = new SpannableStringBuilder(text).append("\n");
-            text = buildTextRight(text, mBottomText.toString(), mBottomTextAppearance);
+            text = buildTextRight(text, mBottomText.toString(),
+                    mBottomTextAppearance);
         }
         if (notNullOrEmpty(text)) {
             super.setText(text, type);
@@ -77,7 +87,8 @@ public class LabelView extends TextView {
 
     private CharSequence buildTextLeft(CharSequence head, CharSequence foot, int style) {
         SpannableString leftText = format(getContext(), head, style);
-        SpannableStringBuilder builder = new SpannableStringBuilder(leftText).append(foot);
+        SpannableStringBuilder builder = new SpannableStringBuilder(
+                leftText).append(foot);
         return builder.subSequence(0, builder.length());
     }
 
@@ -85,14 +96,16 @@ public class LabelView extends TextView {
     //todo
     private CharSequence buildTextRight(CharSequence head, CharSequence foot, int style) {
         SpannableString rightText = format(getContext(), foot, style);
-        SpannableStringBuilder builder = new SpannableStringBuilder(head).append(rightText);
+        SpannableStringBuilder builder = new SpannableStringBuilder(
+                head).append(rightText);
         return builder.subSequence(0, builder.length());
     }
 
 
     public SpannableString format(Context context, CharSequence text, int style) {
         SpannableString spannableString = new SpannableString(text);
-        spannableString.setSpan(new TextAppearanceSpan(context, style), 0, text.length(), 0);
+        spannableString.setSpan(new TextAppearanceSpan(context, style), 0,
+                text.length(), 0);
         return spannableString;
     }
 

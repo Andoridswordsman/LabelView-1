@@ -40,4 +40,15 @@
         android:layout_marginTop="36dp"
         android:hint="Call labelView.setText()"
         android:textSize="12sp"/>
+
+    <me.drakeet.labelview.LabelView
+        android:id="@+id/lableview_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:textSize="12sp"
+        android:autoLink="web"
+        android:gravity="right"
+        android:text="http://drakeet.me"
+        app:leftText="My blog: "/>
 </LinearLayout>
