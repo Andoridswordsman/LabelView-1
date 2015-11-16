@@ -18,7 +18,7 @@ Inherits from TextView, can set vertical and horizontal label to TextView
 ### Usage
 
 ```groovy
-compile 'me.drakeet.labelview:labelview:0.7'
+compile 'me.drakeet.labelview:labelview:[0.7,)'
 ```
 
 License
